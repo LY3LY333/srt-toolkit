@@ -26,12 +26,15 @@
   },
   "keywords": [
     "subtitle",
+    "subtitles",
     "srt",
     "vtt",
     "webvtt",
     "captions",
+    "video",
+    "translation",
     "cli",
-    "zero-dependency"
+    "nodejs"
   ],
   "license": "MIT",
   "repository": {

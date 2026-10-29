@@ -20,15 +20,14 @@
 ## 安装
 
 ```bash
-npx srt-toolkit info movie.srt
-
-# 或
 git clone https://github.com/LY3LY333/srt-toolkit.git
 cd srt-toolkit
-node bin/srt.js check movie.srt
+node bin/srt.js info movie.srt
 ```
 
 Node.js ≥ 18.17，无第三方依赖。
+
+> 尚未发布到 npm，所以暂时不能用 `npx srt-toolkit`。下文命令里的 `srt` 都指 `node bin/srt.js`（`npm link` 后可直接用命令名）。
 
 ## 常用命令
 
