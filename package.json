@@ -1,0 +1,45 @@
+{
+  "name": "srt-toolkit",
+  "version": "0.1.0",
+  "description": "Subtitle toolkit for SRT/VTT: shift and rescale timings, convert formats, merge tracks and lint reading speed. Zero dependencies.",
+  "type": "module",
+  "bin": {
+    "srt": "bin/srt.js",
+    "srt-toolkit": "bin/srt.js"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./parse": "./src/parse.js",
+    "./check": "./src/check.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "subtitle",
+    "srt",
+    "vtt",
+    "webvtt",
+    "captions",
+    "cli",
+    "zero-dependency"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LY3LY333/srt-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LY3LY333/srt-toolkit/issues"
+  },
+  "homepage": "https://github.com/LY3LY333/srt-toolkit#readme"
+}

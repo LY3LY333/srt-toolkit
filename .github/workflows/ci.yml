@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: node ${{ matrix.node }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: ['18', '20', '22']
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Syntax check
+        run: |
+          node --check bin/srt.js
+          node --check src/cli.js
+          node --check src/parse.js
+          node --check src/serialize.js
+          node --check src/ops.js
+          node --check src/check.js
+          node --check src/timestamp.js
+      - name: Unit tests
+        run: node --test
+
+  smoke:
+    name: CLI smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+      - name: Round trip a subtitle
+        shell: bash
+        run: |
+          printf '1\r\n00:00:01,000 --> 00:00:03,000\r\n你好，世界\r\n\r\n2\r\n00:00:04,000 --> 00:00:06,000\r\n第二条\r\n' > sample.srt
+          node bin/srt.js info sample.srt
+          node bin/srt.js check sample.srt
+          node bin/srt.js shift sample.srt --by +1s --out shifted.srt
+          grep -q '00:00:02,000 --> 00:00:04,000' shifted.srt
+          node bin/srt.js convert shifted.srt --to vtt --out out.vtt
+          grep -q '^WEBVTT' out.vtt
